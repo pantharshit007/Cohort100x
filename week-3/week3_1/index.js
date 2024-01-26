@@ -2,8 +2,16 @@ const express = require('express');
 const z = require('zod');
 const app = express();
 
-const schema = z.array(z.number());
+// const schema = z.array(z.number());
 
+const schema = z.object({
+        email: z.string().email(),
+        pass : z.string().min(5),
+    })
+
+function validate(obj) {
+    return schema.safeParse(obj);
+}
 
 // let numberOfRequests = 0;
 // function rateLimitRequest(req, res,next) {
@@ -14,6 +22,18 @@ const schema = z.array(z.number());
 // app.use(rateLimitRequest);
 app.use(express.json());
 
+app.post('/login', function(req, res) {
+
+    const response = validate(req.body)
+    if (!response.success) {
+        res.status(404).json({ message: "Invalid Input" });
+    }else {
+       res.send({response}); 
+    }  
+
+})
+
+/**
 app.post('/health-checkup',(req, res) => {
     const kidneys = req.body.kidneys;
     // const kidneyLength = kidneys.length;
@@ -63,10 +83,10 @@ app.post('/health-checkup',(req, res) => {
     res.json({
         msg: "kidney is fine!"
     })
-    */
+    
 
 })
-
+*/
 
 
 // global err catches
