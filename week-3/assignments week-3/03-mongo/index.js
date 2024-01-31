@@ -9,6 +9,31 @@ app.use(bodyParser.json());
 app.use("/admin", adminRouter)
 app.use("/user", userRouter)
 
+/*
+// Admin Routes \\
+app.post("/admin/signup", function(req, res) {
+    
+})
+
+app.post("/admin/courses", function(req, res) {
+    
+})
+
+app.get("/admin/courses", function(req, res) {
+    
+})
+
+
+//User's Routes \\
+app.post("/user/signup", function(req, res) {})
+
+app.get("/user/courses", function(req, res) {})
+
+app.post("/user/courses", function(req, res) {})
+
+app.post("/users/purchasedCourses", function(req, res) {})
+
+*/
 const PORT = 3000;
 
 app.listen(PORT, () => {
