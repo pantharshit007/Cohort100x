@@ -28,28 +28,65 @@ router.get('/courses', userMiddleware, async (req, res) => {
     })
 });
 
+//need to re-implement for better understanding between query and parameters
+// query are send like this ?courseId= ... while parameters are /...
 router.post('/courses/:courseId', userMiddleware, async (req, res) => {
-    // Implement course purchase logic
-    const courseId = req.params.courseId;
-    const username = req.headers.username;
+    try {
+        // Implement course purchase logic
+        const courseId = req.params.courseId;
+        const username = req.headers.username;
 
-    await User.updateOne({
-        username: username
-    },{
-        "$push": {
-            purchasedCourses: courseId,
+        //checking if the user already bought the course or not
+        const user = await User.findOne({
+            username: username,
+            purchasedCourses: courseId
+        })
+
+        if (user){
+            // User has already purchased the course
+            return res.status(400).json({
+                message: 'User has already purchased this course'
+            });
         }
-        }
-    )
 
-    res.json({
-        message: 'Course purchased successfully'
-    })
+        await User.updateOne({
+            username: username
+        }, {
+            $push: {
+                purchasedCourses: courseId,
+            }
+        });
 
+        res.status(200).json({
+            message: 'Course purchased successfully'
+        });
+    } catch (error) {
+        console.error('Error purchasing course:', error);
+        res.status(500).json({
+            message: 'Internal Server Error'
+        });
+    }
 });
 
-router.get('/purchasedCourses', userMiddleware, (req, res) => {
+
+router.get('/purchasedCourses', userMiddleware, async (req, res) => {
     // Implement fetching purchased courses logic
+    const username = req.headers.username;
+    const response = await User.findOne({ 
+        username: username, 
+    })
+
+    //$in operator is used to query for documents where the value of a field equals any value in the specified array
+    // as i forgot to use await here it was causing issues use Await
+    const courses = await Course.find({
+        _id:{
+            $in : response.purchasedCourses
+        }
+     })
+    res.json({
+        coursesPurchased: courses
+    })
+
 });
 
 module.exports = router
