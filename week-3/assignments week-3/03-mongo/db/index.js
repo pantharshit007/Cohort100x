@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
+require("dotenv").config();
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://admin0:Harshit.admin0@cluster0.mcecglh.mongodb.net/CourseApp');
+mongoose.connect(process.env.mongoose_connection);
+mongoose.connection.on('open', () => {
+    console.log('Connected to MongoDB');
+});
 
 // Define schemas
 const AdminSchema = new mongoose.Schema({
@@ -14,6 +18,10 @@ const UserSchema = new mongoose.Schema({
     // Schema definition here
     username: String,
     password: String,
+    purchasedCourses:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Course'
+    }]
 });
 
 const CourseSchema = new mongoose.Schema({
