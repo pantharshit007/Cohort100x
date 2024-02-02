@@ -8,3 +8,5 @@ const elem1 = combine<string>(["one", "two", "three"])
 // elem1.toUpperCase()
 console.log(elem)
 console.log(elem1.toUpperCase())
+
+//test
