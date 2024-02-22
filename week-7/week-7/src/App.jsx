@@ -1,5 +1,6 @@
 import { useRecoilState, useRecoilValue, RecoilRoot, useSetRecoilState } from "recoil";
 import { countAtoms, isEvenSelector } from "./store/atoms/count";
+import Todo from "./components/Todo";
 
 function App() {
   
@@ -7,49 +8,49 @@ function App() {
   return (
     <div>
       <RecoilRoot>
-        <Count  />
+        <Todo  />
       </RecoilRoot>
     </div>
   )
 }
 
-function Count() {
-  return <div>
-    <CountRenderer />
-    <Buttons  />
-    <IsEven />
-  </div>
-}
+// function Count() {
+//   return <div>
+//     <CountRenderer />
+//     <Buttons  />
+//     <IsEven />
+//   </div>
+// }
 
-function CountRenderer() {
-  const count = useRecoilValue(countAtoms);
+// function CountRenderer() {
+//   const count = useRecoilValue(countAtoms);
 
-  return <div>
-    {count}
-  </div>
-}
+//   return <div>
+//     {count}
+//   </div>
+// }
 
-function Buttons() {
-  const setCount = useSetRecoilState(countAtoms);
+// function Buttons() {
+//   const setCount = useSetRecoilState(countAtoms);
 
-  return <div>
-    <button onClick={() => {
-      setCount(count => count + 1)
-    }}>Increase</button>
+//   return <div>
+//     <button onClick={() => {
+//       setCount(count => count + 1)
+//     }}>Increase</button>
 
-    <button onClick={() => {
-      setCount(count => count - 1)
-    }}>Decrease</button>
-  </div>
-}
+//     <button onClick={() => {
+//       setCount(count => count - 1)
+//     }}>Decrease</button>
+//   </div>
+// }
 
-function IsEven(){
-  const isEven = useRecoilValue(isEvenSelector);
-  return <div>
-    {
-        isEven && <span>is Even</span>
-    }
-    </div>
-}
+// function IsEven(){
+//   const isEven = useRecoilValue(isEvenSelector);
+//   return <div>
+//     {
+//         isEven && <span>is Even</span>
+//     }
+//     </div>
+// }
 
 export default App
