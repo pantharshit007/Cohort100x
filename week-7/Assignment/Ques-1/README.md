@@ -1,3 +1,3 @@
 # React + Vite
 
-![Git Repo Card](/Ques-1/public/img.png)
+![Git Repo Card](public/img.png)
