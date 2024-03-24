@@ -1,0 +1,15 @@
+noUnusedLocals: true,
+// generates an error if it finds unused local variables
+
+noUnusedParameters: true,
+// reports errors when a function parameter is unused.
+
+noImplicitReturns 
+// ensures that every function declared with a return value must return the value as defined in the function.   
+
+    "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
+    "rootDir": "./src",                                  /* Specify the root folder within your source files. */
+
+dist folder is always added to .gitignore
+
+use tsc --init to add config file

@@ -1,4 +1,0 @@
-    "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
-    "rootDir": "./src",                                  /* Specify the root folder within your source files. */
-
-dist folder is always added to .gitignore
